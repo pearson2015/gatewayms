@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gatewayms
+  main.allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9100
+  cloud:
+    gateway:
+      routes:
+        - id: customer-ms
+          uri: lb://customerms
+          predicates:
+            - Path=/customerms/**
+        - id: reservation-service
+          uri: lb://reservationms
+          predicates:
+            - Path=/reservationms/**
+        - id: payment-ms
+          uri: lb://paymentms
+          predicates:
+            - Path=/paymentms/**
+        - id: hotelmanagement-ms
+          uri: lb://hotelmanagementms
+          predicates:
+            - Path=/hotelmanagementms/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
