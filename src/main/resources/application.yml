@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: gatewayms
@@ -16,7 +16,7 @@ spring:
           uri: lb://customerms
           predicates:
             - Path=/customerms/**
-        - id: reservation-service
+        - id: reservation-ms
           uri: lb://reservationms
           predicates:
             - Path=/reservationms/**
